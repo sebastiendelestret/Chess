@@ -1,4 +1,4 @@
 # Chess
-Juste a simple chess game in C language 
+Just a simple chess game in C language 
 
 By Sébastien Delestret
