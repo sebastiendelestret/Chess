@@ -1,5 +1,18 @@
 #include "chess.h"
 
+PIECES blackPawn = { "pawn","b",0, "images/pieces/pawnB.bmp" };
+PIECES whitePawn = { "pawn","w",0, "images/pieces/pawnW.bmp" };
+PIECES blackRook = { "rook","b",0, "images/pieces/rookB.bmp" };
+PIECES whiteRook = { "rook","w",0, "images/pieces/rookW.bmp" };
+PIECES darkKnight = { "kni","b",0, "images/pieces/knightB.bmp" };
+PIECES whiteKnight = { "kni","w",0, "images/pieces/knightW.bmp" };
+PIECES blackBishop = { "bish","b",0, "images/pieces/bishopB.bmp" };
+PIECES whiteBishop = { "bish","w",0, "images/pieces/bishopW.bmp" };
+PIECES blackQueen = { "quee","b",0, "images/pieces/queenB.bmp" };
+PIECES whiteQueen = { "quee","w",0, "images/pieces/queenW.bmp" };
+PIECES blackKing = { "king","b",0, "images/pieces/kingB.bmp" };
+PIECES whiteKing = { "king","w",0, "images/pieces/kingW.bmp" };
+PIECES none = { "none","n", 0, "images/pieces/none.bmp" };
 
 void initChessBoard()
 {
@@ -38,6 +51,21 @@ void initChessBoard()
 		pieces[i][0] = blackBishop;
 		pieces[i][7] = whiteBishop;
 	}
+
+	pieces[3][0] = blackQueen;
+	pieces[3][7] = whiteQueen;
+	pieces[4][0] = blackKing;
+	pieces[4][7] = whiteKing;
+	
+
+	for (int i = 0; i < 8; i++)
+	{
+		for (int j = 2; j < 6; j++)
+		{
+			pieces[i][j] = none;
+		}
+
+	}
 }
 
 void displayBoard(SDL_Window* window)
@@ -66,43 +94,12 @@ void displayBoard(SDL_Window* window)
 			}
 
 			SDL_BlitSurface(surface, NULL, SDL_GetWindowSurface(window), &pos);
-
-			switch (pieces[i][j])
-			{
-			case blackPawn:
-				surface = SDL_LoadBMP("images/pieces/pawnB.bmp");
-				break;
-			case whitePawn:
-				surface = SDL_LoadBMP("images/pieces/pawnW.bmp");
-				break;
-			case blackRook:
-				surface = SDL_LoadBMP("images/pieces/rookB.bmp");
-				break;
-			case whiteRook:
-				surface = SDL_LoadBMP("images/pieces/rookW.bmp");
-				break;
-			case darkKnight:
-				surface = SDL_LoadBMP("images/pieces/knightB.bmp");
-				break;
-			case whiteKnight:
-				surface = SDL_LoadBMP("images/pieces/knightW.bmp");
-				break;
-			case blackBishop:
-				surface = SDL_LoadBMP("images/pieces/bishopB.bmp");
-				break;
-			case whiteBishop:
-				surface = SDL_LoadBMP("images/pieces/bishopW.bmp");
-				break;
-			default:
-				surface = SDL_LoadBMP("images/pieces/none.bmp");
-				break;
-
-
-
-			}
-
+			surface = SDL_LoadBMP(pieces[i][j].file);
+			
+		
 			SDL_SetColorKey(surface, SDL_TRUE, SDL_MapRGB(surface->format, 0, 255, 0));
 			SDL_BlitSurface(surface, NULL, SDL_GetWindowSurface(window), &pos);
+		
 
 
 

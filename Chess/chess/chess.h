@@ -8,17 +8,22 @@
 #define white 'w'
 #define black 'b'
 
-#define blackPawn 'wp'
-#define whitePawn 'bp'
-#define blackRook 'br'
-#define whiteRook 'wr'
-#define darkKnight 'dk'
-#define whiteKnight 'wk'
-#define blackBishop 'bb'
-#define whiteBishop 'wb'
+typedef struct pieces {const char* piece;const char* color; int select; const char* file; } PIECES;
+
 
 
 #define end 0
 
 int board[8][8];
-int pieces[8][8];
+
+PIECES pieces[8][8];
+
+typedef struct Case { int caseX; int caseY; } CASE;
+
+
+
+void initChessBoard();
+void displayBoard(SDL_Window* window);
+
+
+
