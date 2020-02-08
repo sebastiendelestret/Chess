@@ -1,18 +1,4 @@
-#include "chess.h"
-
-PIECES blackPawn = { "pawn","b",0, "images/pieces/pawnB.bmp" };
-PIECES whitePawn = { "pawn","w",0, "images/pieces/pawnW.bmp" };
-PIECES blackRook = { "rook","b",0, "images/pieces/rookB.bmp" };
-PIECES whiteRook = { "rook","w",0, "images/pieces/rookW.bmp" };
-PIECES darkKnight = { "kni","b",0, "images/pieces/knightB.bmp" };
-PIECES whiteKnight = { "kni","w",0, "images/pieces/knightW.bmp" };
-PIECES blackBishop = { "bish","b",0, "images/pieces/bishopB.bmp" };
-PIECES whiteBishop = { "bish","w",0, "images/pieces/bishopW.bmp" };
-PIECES blackQueen = { "quee","b",0, "images/pieces/queenB.bmp" };
-PIECES whiteQueen = { "quee","w",0, "images/pieces/queenW.bmp" };
-PIECES blackKing = { "king","b",0, "images/pieces/kingB.bmp" };
-PIECES whiteKing = { "king","w",0, "images/pieces/kingW.bmp" };
-PIECES none = { "none","n", 0, "images/pieces/none.bmp" };
+#include "pieces.h"
 
 void initChessBoard()
 {
@@ -62,9 +48,18 @@ void initChessBoard()
 	{
 		for (int j = 2; j < 6; j++)
 		{
-			pieces[i][j] = none;
+			pieces[i][j] = empty;
 		}
 
+	}
+
+	for (int i = 0; i < 8; i++)
+	{
+		for (int j = 0; j < 8; j++)
+		{
+			possible[i][j].YoN = 0;
+			possible[i][j].file= "images/possible.bmp";
+		}
 	}
 }
 
@@ -97,15 +92,26 @@ void displayBoard(SDL_Window* window)
 			surface = SDL_LoadBMP(pieces[i][j].file);
 			
 		
-			SDL_SetColorKey(surface, SDL_TRUE, SDL_MapRGB(surface->format, 0, 255, 0));
+			if (pieces[i][j].select == 0)
+			{
+				SDL_SetColorKey(surface, SDL_TRUE, SDL_MapRGB(surface->format, 0, 255, 0));
+			}
 			SDL_BlitSurface(surface, NULL, SDL_GetWindowSurface(window), &pos);
 		
+			if (possible[i][j].YoN == 1)
+			{
+				surface = SDL_LoadBMP(possible[i][j].file);
+				SDL_SetColorKey(surface, SDL_TRUE, SDL_MapRGB(surface->format, 0, 255, 0));
+				SDL_BlitSurface(surface, NULL, SDL_GetWindowSurface(window), &pos);
 
+			}
 
 
 
 		}
 	}
+	SDL_UpdateWindowSurface(window);
+
 
 	SDL_FreeSurface(surface);
 }

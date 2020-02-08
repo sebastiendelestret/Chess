@@ -142,9 +142,11 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="authorized.c" />
     <ClCompile Include="chessBoard.c" />
     <ClCompile Include="event.c" />
     <ClCompile Include="main.c" />
+    <ClCompile Include="mouvement.c" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="chess.h" />

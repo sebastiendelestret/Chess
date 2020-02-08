@@ -2,10 +2,59 @@
 
 
 
-CASE clickEvent(SDL_Event event)
+void clickEvent(SDL_Event event)
 {
-	CASE select = { event.button.x / 8, event.button.y / 8 };
-	return select;
+	static int selected = 0;
+	static CASE prevCase = { NULL, NULL };
+	
+	CASE selectedCase = { event.button.x / 100, event.button.y / 100 };
+	PIECES* pieceToMove = &pieces[selectedCase.caseX][selectedCase.caseY];
+
+
+	if (selected == 1)
+	{
+		if (selectedCase.caseX == prevCase.caseX && selectedCase.caseY == prevCase.caseY)
+		{
+			pieceToMove->select = 0;
+			prevCase.caseX = NULL;
+			prevCase.caseY = NULL;
+			selected = 0;
+			resetPossible();
+		}
+		else
+		{
+			if (checkMove(prevCase, selectedCase))
+			{
+				pieceToMove->select = 0;
+				selected = 0;
+				resetPossible();
+			}
+			
+		}
+	}
+
+	else
+	{
+		if (pieceToMove->piece != none)
+		{
+			pieceToMove->select = 1;
+			selected = 1;
+			prevCase = selectedCase;
+			checkPossible(selectedCase);
+
+		}
+	}
+
+	/*if (pieces[select.caseX][select.caseY].select != 1)
+	{
+		pieces[select.caseX][select.caseY].select = 1;
+	}
+	else
+	{
+		pieces[select.caseX][select.caseY].select = 0;
+	}*/
+	
+
 }
 
 
@@ -13,18 +62,19 @@ CASE clickEvent(SDL_Event event)
 
 
 
-int waitEvent()
+int waitEvent(SDL_Window* window)
 {
 	SDL_Event event;
-	SDL_PollEvent(&event);
+	SDL_WaitEvent(&event);
 
-	switch (event.type)
+	switch (event.type)	
 	{
 	case SDL_QUIT:
 		return end;
 		break;
 	case SDL_MOUSEBUTTONUP:
-		break;
+		clickEvent(event);
+		displayBoard(window);
 	default:
 		return 1;
 		break;
