@@ -22,6 +22,8 @@ int checkPossible(CASE pos)
 	{
 	case pawn:
 		return authorizedMovePawn(pos);
+	case rook:
+		return authorizedMoveRook(pos);
 	default:
 		return 0;
 		break;
@@ -32,10 +34,65 @@ int checkPossible(CASE pos)
 
 
 
+int authorizedMoveRook(CASE pos)
+{
+	PIECES piece = pieces[pos.caseX][pos.caseY];
+	PIECES check;
+	int k, j;
+	
+	for (int i = 1; i >= -1; i -= 2)
+	{
+		j = i;
+		k = 1;
+		do
+		{
+			if (pos.caseX + j >= 0 && pos.caseX + j < 8)
+			{
+				check = pieces[pos.caseX + j][pos.caseY];
+				if (check.piece == none)
+				{
+					possible[pos.caseX + j][pos.caseY].YoN = 1;
+				
+				}
+				else if (check.color != piece.color)
+				{
+					possible[pos.caseX + j][pos.caseY].YoN = 1;
+					k = 0;
+				}
+				else k = 0;
+				j += i;
+			}
+			else k = 0;
+			
+		} while (k);
+		j = i; k = 1;
+		do
+		{
+			if (pos.caseY + j >= 0 && pos.caseY + j < 8)
+			{
+				check = pieces[pos.caseX][pos.caseY + j];
+				if (check.piece == none)
+				{
+					possible[pos.caseX][pos.caseY + j].YoN = 1;
+				}
+				else if (check.color != piece.color)
+				{
+					possible[pos.caseX][pos.caseY + j].YoN = 1;
+					k = 0;
+				}
+				else k = 0;
+				j += i;
+
+			}
+			else k = 0;
+		} while (k);
+		
+	}
+	return 1;
+}
 
 
-
-int authorizedMovePawn(CASE pos)   //ajouter prise en passant
+int authorizedMovePawn(CASE pos)   //ajouter prise en passant + interdit manger roi + échange pion/dame
 {
 	PIECES piece = pieces[pos.caseX][pos.caseY];
 	PIECES check;
@@ -72,10 +129,13 @@ int authorizedMovePawn(CASE pos)   //ajouter prise en passant
 
 		for (int j = -1; j <= 1; j += 2)
 		{
-			check = pieces[pos.caseX + j][(pos.caseY +i)];
-			if (check.piece != none && check.color != piece.color)
+			if (pos.caseX + j >= 0 && pos.caseX + j < 8)
 			{
-				possible[pos.caseX + j][pos.caseY + i].YoN = 1;
+				check = pieces[pos.caseX + j][(pos.caseY + i)];
+				if (check.piece != none && check.color != piece.color)
+				{
+					possible[pos.caseX + j][pos.caseY + i].YoN = 1;
+				}
 			}
 		}
 		return 1;

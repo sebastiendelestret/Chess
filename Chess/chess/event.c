@@ -4,6 +4,7 @@
 
 void clickEvent(SDL_Event event)
 {
+	
 	static int selected = 0;
 	static CASE prevCase = { NULL, NULL };
 	
@@ -23,17 +24,18 @@ void clickEvent(SDL_Event event)
 		}
 		else
 		{
-			if (checkMove(prevCase, selectedCase))
+			if (move(prevCase, selectedCase))
 			{
 				pieceToMove->select = 0;
 				selected = 0;
 				resetPossible();
+				nextPlayer();
 			}
 			
 		}
 	}
 
-	else
+	else if(pieceToMove->color == colorTurn)
 	{
 		if (pieceToMove->piece != none)
 		{
@@ -69,5 +71,12 @@ int waitEvent(SDL_Window* window)
 		break;
 	}
 
+	
+}
 
+
+void nextPlayer()
+{
+	if(colorTurn == white)colorTurn = black;
+	else colorTurn = white;
 }
