@@ -15,8 +15,8 @@
 #define queen 'q'
 #define none 'n'
 
-typedef struct pieces { int piece; int color; int select; const char* file; } PIECES;
 typedef struct Case { int caseX; int caseY; } CASE;
+typedef struct pieces { int piece; int color; int select; const char* file; int move; } PIECES;
 typedef struct select { CASE posSelect; PIECES pieceSelect; } SELECT;
 typedef struct mark { int YoN; const char* file; } MARK;
 
@@ -37,8 +37,8 @@ void clickEvent(SDL_Event event);
 int waitEvent(SDL_Window* window);
 
 void resetPossible();
-int checkPossible(CASE pieceToMove);
-int authorizedMovePawn(CASE pieceToMove);
+int checkPossible(CASE pos);
+int authorizedMovePawn(CASE pos);
 
 int checkMove(CASE fromCase, CASE toCase);
 int movePawn(CASE pieceToMove, CASE toNewCase);

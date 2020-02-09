@@ -44,17 +44,6 @@ void clickEvent(SDL_Event event)
 
 		}
 	}
-
-	/*if (pieces[select.caseX][select.caseY].select != 1)
-	{
-		pieces[select.caseX][select.caseY].select = 1;
-	}
-	else
-	{
-		pieces[select.caseX][select.caseY].select = 0;
-	}*/
-	
-
 }
 
 
