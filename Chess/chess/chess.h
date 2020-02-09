@@ -42,6 +42,7 @@ void nextPlayer();
 //authorized.c functions
 void resetPossible();
 int checkPossible(CASE pos);
+int authorizedMoveKnight(CASE pos);
 int authorizedMoveRook(CASE pos);
 int authorizedMovePawn(CASE pos);
 

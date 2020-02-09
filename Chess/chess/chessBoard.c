@@ -13,29 +13,7 @@ void initChessBoard()
 			board[i + 1][j + 1] = white;
 		}
 	}
-
-/*	
 	
-	
-
-	for (int i = 1; i < 7; i += 5) //place knights
-	{
-		pieces[i][0] = darkKnight;
-		pieces[i][7] = whiteKnight;
-	}
-
-	for (int i = 2; i < 6; i += 3) //place bishops
-	{
-		pieces[i][0] = blackBishop;
-		pieces[i][7] = whiteBishop;
-	}
-
-	pieces[3][0] = blackQueen;
-	pieces[3][7] = whiteQueen;
-	pieces[4][0] = blackKing;
-	pieces[4][7] = whiteKing;
-	
-	*/
 	for (int i = 0; i < 8; i++)
 	{
 		for (int j = 0; j < 8; j++)
@@ -56,6 +34,23 @@ void initChessBoard()
 		pieces[i][0] = blackRook;
 		pieces[i][7] = whiteRook;
 	}
+	for (int i = 1; i < 7; i += 5) //place knights
+	{
+		pieces[i][0] = darkKnight;
+		pieces[i][7] = whiteKnight;
+	}
+
+	for (int i = 2; i < 6; i += 3) //place bishops
+	{
+		pieces[i][0] = blackBishop;
+		pieces[i][7] = whiteBishop;
+	}
+
+	pieces[3][0] = blackQueen;
+	pieces[3][7] = whiteQueen;
+	pieces[4][0] = blackKing;
+	pieces[4][7] = whiteKing;
+
 
 	for (int i = 0; i < 8; i++)
 	{

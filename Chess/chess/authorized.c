@@ -24,6 +24,8 @@ int checkPossible(CASE pos)
 		return authorizedMovePawn(pos);
 	case rook:
 		return authorizedMoveRook(pos);
+	case knight:
+		return authorizedMoveKnight(pos);
 	default:
 		return 0;
 		break;
@@ -32,6 +34,35 @@ int checkPossible(CASE pos)
 
 
 
+int authorizedMoveKnight(CASE pos)
+{
+	PIECES piece = pieces[pos.caseX][pos.caseY];
+	PIECES check;
+	int j;
+
+	for (int y = -2; y <= 2; y ++)
+	{
+		if (pos.caseY + y >= 0 && pos.caseY + y < 8 && y!=0)
+		{
+			if (abs(y) == 2) j = -1;
+			else j = -2;
+			for (int x=j; x <= abs(j); x+=2*abs(j))
+			{
+				if (pos.caseX + x >= 0 && pos.caseX + x < 8)
+				{
+					check = pieces[pos.caseX + x][pos.caseY + y];
+					if (check.color != piece.color)
+					{
+						possible[pos.caseX + x][pos.caseY + y].YoN = 1;
+					}
+				}
+			}
+		}
+	}
+	
+
+	return 1;
+}
 
 
 int authorizedMoveRook(CASE pos)
