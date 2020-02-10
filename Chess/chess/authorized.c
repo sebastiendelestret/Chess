@@ -13,9 +13,6 @@ void resetPossible()
 }
 
 
-
-
-
 int checkPossible(CASE pos)
 {
 	switch (pieces[pos.caseX][pos.caseY].piece)
@@ -26,12 +23,78 @@ int checkPossible(CASE pos)
 		return authorizedMoveRook(pos);
 	case knight:
 		return authorizedMoveKnight(pos);
+	case bishop:
+		return authorizedMoveBishopsQueen(pos);
+	case queen:
+		return authorizedMoveBishopsQueen(pos);
+	case king :
+		return authorizedMoveKing(pos);
 	default:
 		return 0;
 		break;
 	}
 }
 
+
+int authorizedMoveKing(CASE pos)
+{
+	PIECES piece = pieces[pos.caseX][pos.caseY];
+	PIECES check;
+	for (int x = -1; x <= 1; x++)
+	{
+		for (int y = -1; y <= 1; y++)
+		{
+			if (pos.caseX + x >= 0 && pos.caseX + x < 8 && pos.caseY + y >= 0 && pos.caseY + y < 8)
+			{
+				check = pieces[pos.caseX + x][pos.caseY + y];
+				if (check.color != piece.color)
+				{
+					possible[pos.caseX + x][pos.caseY + y].YoN = 1;
+				}
+			}
+		}
+	}
+	return 1;
+}
+
+int authorizedMoveBishopsQueen(CASE pos)
+{
+	PIECES piece = pieces[pos.caseX][pos.caseY];
+	PIECES check;
+	int xi, yi, k;
+
+	for (int x = -1; x <= 1; x++)
+	{
+		if ((x != 0 && piece.piece == bishop) || piece.piece == queen)
+		{
+			for (int y = -1; y <= 1; y++)
+			{
+				if ((y != 0 && piece.piece == bishop) || piece.piece == queen)
+				{
+
+					xi = x; yi = y; k = 1;
+					do
+					{
+						if (pos.caseX + xi >= 0 && pos.caseX + xi < 8 && pos.caseY + yi >= 0 && pos.caseY + yi < 8)
+						{
+							check = pieces[pos.caseX + xi][pos.caseY + yi];
+							if (check.color != piece.color)
+							{
+								possible[pos.caseX + xi][pos.caseY + yi].YoN = 1;
+								if (check.piece != none) k = 0;
+							}
+							else k = 0;
+						}
+						else k = 0;
+						xi += x; yi += y;
+					} while (k);
+				}
+			}
+		}
+
+	}
+	return 1;
+}
 
 
 int authorizedMoveKnight(CASE pos)

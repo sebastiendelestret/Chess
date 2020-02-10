@@ -1,7 +1,6 @@
 #include "chess.h"
 
 
-
 int move(CASE pieceToMove, CASE toNewCase)
 {
 	PIECES empty = { none,0, 0, "images/pieces/none.bmp",0 };

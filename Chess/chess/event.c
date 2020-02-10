@@ -1,7 +1,6 @@
 #include "chess.h"
 
 
-
 void clickEvent(SDL_Event event)
 {
 	
@@ -47,10 +46,6 @@ void clickEvent(SDL_Event event)
 		}
 	}
 }
-
-
-
-
 
 
 int waitEvent(SDL_Window* window)

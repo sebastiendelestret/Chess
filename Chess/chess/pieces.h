@@ -1,8 +1,6 @@
 #include "chess.h"
 
 
-
-
 PIECES blackPawn = { pawn,black,0, "images/pieces/pawnB.bmp",0 };
 PIECES whitePawn = { pawn,white,0, "images/pieces/pawnW.bmp",0 };
 PIECES blackRook = { rook,black,0, "images/pieces/rookB.bmp",0 };
